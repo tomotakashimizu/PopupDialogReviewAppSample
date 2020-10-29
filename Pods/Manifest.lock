@@ -1,0 +1,45 @@
+PODS:
+  - Cosmos (23.0.0)
+  - DynamicBlurView (4.1.0)
+  - NCMB (3.1.0)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
+  - SVProgressHUD (2.2.5)
+  - SwiftDate (4.4.2)
+
+DEPENDENCIES:
+  - Cosmos (~> 23.0)
+  - NCMB (from `https://github.com/NIFTYCloud-mbaas/ncmb_ios.git`, branch `develop`)
+  - PopupDialog (~> 1.1)
+  - SVProgressHUD
+  - SwiftDate (~> 4.4.0)
+
+SPEC REPOS:
+  trunk:
+    - Cosmos
+    - DynamicBlurView
+    - PopupDialog
+    - SVProgressHUD
+    - SwiftDate
+
+EXTERNAL SOURCES:
+  NCMB:
+    :branch: develop
+    :git: https://github.com/NIFTYCloud-mbaas/ncmb_ios.git
+
+CHECKOUT OPTIONS:
+  NCMB:
+    :commit: 7abde9187ef0b92990c0fbde3fcc2ff4f6d794de
+    :git: https://github.com/NIFTYCloud-mbaas/ncmb_ios.git
+
+SPEC CHECKSUMS:
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
+  NCMB: c308972109137bf523ec1830bac16de6a31c25f4
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftDate: 131cf2f09b390f0a07f0099e36005ffe2fbf4c7e
+
+PODFILE CHECKSUM: b9033c52d78235f79a0aae72910cfe2344edfd26
+
+COCOAPODS: 1.9.1
