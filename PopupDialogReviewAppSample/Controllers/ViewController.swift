@@ -151,6 +151,48 @@ class ViewController: UIViewController {
         showCustomDialog()
     }
     
+}
+
+//tableViewに関する処理
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func configureTableView() {
+        
+        reviewTableView.dataSource = self
+        reviewTableView.delegate = self
+        
+        let nib = UINib(nibName: "ReviewTableViewCell", bundle: Bundle.main)
+        reviewTableView.register(nib, forCellReuseIdentifier: "Cell")
+        
+        reviewTableView.tableFooterView = UIView()
+        
+        // tableViewを可変にする
+        reviewTableView.estimatedRowHeight = 120
+        reviewTableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    // tableViewの数を決める関数
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reviews.count
+    }
+    
+    // tableViewに表示する内容
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! ReviewTableViewCell
+        
+        let user = reviews[indexPath.row].user
+        cell.userIdLabel.text = user.userName
+        cell.reviewCosmosView.rating = reviews[indexPath.row].reviewRating
+        cell.reviewLabel.text = reviews[indexPath.row].reviewText
+        
+        return cell
+    }
+}
+
+//showMenu（alert）の処理
+extension ViewController {
+    
     @IBAction func showMenu() {
         // いつも使っているアラートではなく、.actionSheetを使う
         let alertController = UIAlertController(title: "メニュー", message: "メニューを選択してください。", preferredStyle: .actionSheet)
@@ -224,43 +266,5 @@ class ViewController: UIViewController {
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-}
-
-//tableViewに関する処理
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func configureTableView() {
-        
-        reviewTableView.dataSource = self
-        reviewTableView.delegate = self
-        
-        let nib = UINib(nibName: "ReviewTableViewCell", bundle: Bundle.main)
-        reviewTableView.register(nib, forCellReuseIdentifier: "Cell")
-        
-        reviewTableView.tableFooterView = UIView()
-        
-        // tableViewを可変にする
-        reviewTableView.estimatedRowHeight = 120
-        reviewTableView.rowHeight = UITableView.automaticDimension
-    }
-    
-    // tableViewの数を決める関数
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews.count
-    }
-    
-    // tableViewに表示する内容
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! ReviewTableViewCell
-        
-        let user = reviews[indexPath.row].user
-        cell.userIdLabel.text = user.userName
-        cell.reviewCosmosView.rating = reviews[indexPath.row].reviewRating
-        cell.reviewLabel.text = reviews[indexPath.row].reviewText
-        
-        return cell
     }
 }
