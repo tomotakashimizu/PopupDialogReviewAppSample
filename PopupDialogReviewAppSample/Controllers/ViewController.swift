@@ -11,7 +11,7 @@ import SVProgressHUD
 import Cosmos
 import PopupDialog
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController {
     
     // レビューの表示に必要なReviewクラスの配列を用意
     var reviews = [Review]()
@@ -25,39 +25,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        reviewTableView.dataSource = self
-        reviewTableView.delegate = self
-        
-        let nib = UINib(nibName: "ReviewTableViewCell", bundle: Bundle.main)
-        reviewTableView.register(nib, forCellReuseIdentifier: "Cell")
-        
-        reviewTableView.tableFooterView = UIView()
-        
-        // tableViewを可変にする
-        reviewTableView.estimatedRowHeight = 120
-        reviewTableView.rowHeight = UITableView.automaticDimension
+        configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadReviews()
-    }
-    
-    // tableViewの数を決める関数
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews.count
-    }
-    
-    // tableViewに表示する内容
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! ReviewTableViewCell
-        
-        let user = reviews[indexPath.row].user
-        cell.userIdLabel.text = user.userName
-        cell.reviewCosmosView.rating = reviews[indexPath.row].reviewRating
-        cell.reviewLabel.text = reviews[indexPath.row].reviewText
-        
-        return cell
     }
     
     //総和｜全体の各要素を足し合わせるだけ。
@@ -256,3 +228,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
 }
 
+//tableViewに関する処理
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func configureTableView() {
+        
+        reviewTableView.dataSource = self
+        reviewTableView.delegate = self
+        
+        let nib = UINib(nibName: "ReviewTableViewCell", bundle: Bundle.main)
+        reviewTableView.register(nib, forCellReuseIdentifier: "Cell")
+        
+        reviewTableView.tableFooterView = UIView()
+        
+        // tableViewを可変にする
+        reviewTableView.estimatedRowHeight = 120
+        reviewTableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    // tableViewの数を決める関数
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reviews.count
+    }
+    
+    // tableViewに表示する内容
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! ReviewTableViewCell
+        
+        let user = reviews[indexPath.row].user
+        cell.userIdLabel.text = user.userName
+        cell.reviewCosmosView.rating = reviews[indexPath.row].reviewRating
+        cell.reviewLabel.text = reviews[indexPath.row].reviewText
+        
+        return cell
+    }
+}
