@@ -9,7 +9,7 @@ import UIKit
 import NCMB
 import SVProgressHUD
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController {
     
     @IBOutlet var userIdTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
@@ -18,23 +18,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        userIdTextField.delegate = self
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        confirmTextField.delegate = self
-    }
-    
-    // 改行(完了)ボタンを押した時の処理
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // キーボードを閉じる
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // TextField以外の部分をタッチ => TextFieldが閉じる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+        
+        configureTextField()
     }
     
     @IBAction func signUp() {
@@ -101,4 +86,27 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+}
+
+//textFieldに関する処理
+extension SignUpViewController: UITextFieldDelegate {
+    
+    func configureTextField() {
+        userIdTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmTextField.delegate = self
+    }
+    
+    // 改行(完了)ボタンを押した時の処理
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // キーボードを閉じる
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // TextField以外の部分をタッチ => TextFieldが閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
